@@ -10,6 +10,10 @@ def is_game_over():
     return guessed == WORDS_TO_WIN or errors == ERRORS_TO_LOSE
 
 
+def game_over_message():
+    print("Game over! You've used all your lives.")
+
+
 guessed = 0
 errors = 0
 
@@ -28,7 +32,9 @@ print(f"Your word is '{word}'")
 
 while not is_game_over():
     guess = input("Your next take: ")
-    if guess in full_list:
+    if guess in guesses:
+        print("You've already guessed that word. Try another.")
+    elif guess in full_list:
         guessed += 1
         guesses.append(guess)
         if guessed == WORDS_TO_WIN:
@@ -38,3 +44,6 @@ while not is_game_over():
     else:
         errors += 1
         print(f"Oops :( No such word, you have {ERRORS_TO_LOSE - errors} lives more")
+
+if errors == ERRORS_TO_LOSE:
+    game_over_message()
